@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Page Chat Assistant</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="sidebar.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-3 flex justify-between items-center">
+    <h1 class="text-lg font-bold">Web Page Chat</h1>
+    <div class="flex space-x-2">
+      <button id="settings-btn" class="p-1 hover:bg-blue-700 rounded" title="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </button>
+      <button id="close-btn" class="p-1 hover:bg-blue-700 rounded" title="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="bg-blue-500 text-white flex">
+    <button id="chat-tab" class="py-2 px-4 bg-blue-600 flex-1 font-medium">Chat</button>
+    <button id="history-tab" class="py-2 px-4 hover:bg-blue-600 flex-1 font-medium">History</button>
+  </div>
+
+  <!-- Main content area -->
+  <main class="flex-1 overflow-hidden flex flex-col">
+    <!-- Chat tab content -->
+    <div id="chat-content" class="flex-1 flex flex-col h-full">
+      <!-- Messages container -->
+      <div id="messages-container" class="flex-1 overflow-y-auto p-3 space-y-4"></div>
+      
+      <!-- API key missing message -->
+      <div id="api-key-missing" class="hidden m-4 p-3 bg-yellow-100 text-yellow-800 rounded shadow">
+        <p>Please set your Gemini API key in the settings to start chatting.</p>
+        <button id="open-settings" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded">
+          Open Settings
+        </button>
+      </div>
+      
+      <!-- Loading indicator -->
+      <div id="loading-indicator" class="hidden flex justify-center items-center p-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+      </div>
+      
+      <!-- Input area -->
+      <div class="p-3 bg-white border-t">
+        <div class="flex">
+          <input 
+            id="query-input" 
+            type="text" 
+            placeholder="Ask about this page..." 
+            class="flex-1 border rounded-l p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+          <button 
+            id="send-btn" 
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 rounded-r"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- History tab content -->
+    <div id="history-content" class="hidden flex-1 overflow-y-auto p-3 space-y-4">
+      <div id="history-items-container"></div>
+      <div id="no-history" class="text-center p-4 text-gray-500">
+        No chat history yet. Start chatting to save conversations.
+      </div>
+      <div class="text-center mt-4">
+        <button id="clear-history-btn" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded">
+          Clear All History
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="sidebar.js"></script>
+</body>
+</html>
