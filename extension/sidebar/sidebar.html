@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPage Chatter</title>
+    <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+    <div class="sidebar-container">
+        <header class="sidebar-header">
+            <h1>WebPage Chatter</h1>
+            <div class="header-actions">
+                <button id="refresh-content-btn" title="Refresh page content">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 4v6h-6"></path>
+                        <path d="M1 20v-6h6"></path>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                        <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                    </svg>
+                </button>
+                <button id="settings-btn" title="Settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+                <button id="close-btn" title="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button id="chat-tab-btn" class="tab-button active">Chat</button>
+                <button id="saved-tab-btn" class="tab-button">Saved Chats</button>
+            </div>
+            
+            <div id="chat-tab" class="tab-content active">
+                <div id="chat-messages" class="chat-messages"></div>
+                
+                <div id="loading-indicator" class="loading-indicator hidden">
+                    <div class="spinner"></div>
+                    <p>Processing...</p>
+                </div>
+                
+                <div id="api-key-missing" class="api-key-missing hidden">
+                    <p>Please set your Gemini API key in the settings to use WebPage Chatter.</p>
+                    <button id="open-settings-btn" class="primary-button">Open Settings</button>
+                </div>
+                
+                <div id="minimal-content" class="minimal-content-warning hidden">
+                    <p>Limited content was extracted from this page. Responses may be less accurate.</p>
+                </div>
+                
+                <div class="chat-input-container">
+                    <textarea id="chat-input" placeholder="Ask a question about this page..."></textarea>
+                    <button id="send-btn" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="saved-tab" class="tab-content">
+                <div id="saved-chats-list" class="saved-chats-list">
+                    <p class="no-saved-chats">No saved chats yet.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="settings-panel" class="settings-panel hidden">
+            <h2>Settings</h2>
+            
+            <div class="settings-group">
+                <label for="api-key-input">Gemini API Key</label>
+                <input type="password" id="api-key-input" placeholder="Enter your Gemini API key">
+                <p class="settings-description">
+                    Your API key is stored locally and sent securely with each request.
+                    <a href="https://ai.google.dev/" target="_blank">Get a Gemini API key</a>
+                </p>
+                <div class="api-key-warning">
+                    <p><strong>Important:</strong> Your API key is used to access the Gemini API, which may incur costs based on your usage. Keep your key secure and never share it.</p>
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h3>Text-to-Speech Settings</h3>
+                
+                <label for="tts-voice-select">Voice</label>
+                <select id="tts-voice-select"></select>
+                
+                <label for="tts-speed-range">Speed (<span id="tts-speed-value">1.0</span>x)</label>
+                <input type="range" id="tts-speed-range" min="0.1" max="10" step="0.1" value="1.0">
+                
+                <label for="tts-pitch-range">Pitch (<span id="tts-pitch-value">1.0</span>)</label>
+                <input type="range" id="tts-pitch-range" min="0" max="2" step="0.1" value="1.0">
+            </div>
+            
+            <div class="settings-group">
+                <h3>Chat History</h3>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="auto-save-chats" checked>
+                    <label for="auto-save-chats">Automatically save chats</label>
+                </div>
+                
+                <button id="clear-chats-btn" class="danger-button">Clear All Saved Chats</button>
+            </div>
+            
+            <div class="settings-actions">
+                <button id="save-settings-btn" class="primary-button">Save Settings</button>
+                <button id="cancel-settings-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../common/storage_service.js"></script>
+    <script src="sidebar.js"></script>
+</body>
+</html>

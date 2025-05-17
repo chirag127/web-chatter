@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPage Chatter Settings</title>
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WebPage Chatter Settings</h1>
+        </header>
+        
+        <main>
+            <section class="settings-section">
+                <h2>API Settings</h2>
+                
+                <div class="form-group">
+                    <label for="api-key-input">Gemini API Key</label>
+                    <input type="password" id="api-key-input" placeholder="Enter your Gemini API key">
+                    <button id="toggle-api-key" class="icon-button" title="Show/Hide API Key">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                    <p class="form-help">
+                        Your API key is stored locally and sent securely with each request.
+                        <a href="https://ai.google.dev/" target="_blank">Get a Gemini API key</a>
+                    </p>
+                </div>
+                
+                <div class="api-key-warning">
+                    <h3>Important Information</h3>
+                    <p>Your API key is used to access the Gemini API, which may incur costs based on your usage. Keep your key secure and never share it.</p>
+                    <p>WebPage Chatter does not store your API key on any server. It is stored locally in your browser and sent directly to the Gemini API for each request.</p>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2>Text-to-Speech Settings</h2>
+                
+                <div class="form-group">
+                    <label for="tts-voice-select">Voice</label>
+                    <select id="tts-voice-select"></select>
+                    <p class="form-help">Select a voice for text-to-speech playback.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tts-speed-range">Speed (<span id="tts-speed-value">1.0</span>x)</label>
+                    <input type="range" id="tts-speed-range" min="0.1" max="10" step="0.1" value="1.0">
+                    <p class="form-help">Adjust the speed of text-to-speech playback (0.1x to 10x).</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tts-pitch-range">Pitch (<span id="tts-pitch-value">1.0</span>)</label>
+                    <input type="range" id="tts-pitch-range" min="0" max="2" step="0.1" value="1.0">
+                    <p class="form-help">Adjust the pitch of text-to-speech playback (0 to 2).</p>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2>Chat History</h2>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="auto-save-chats" checked>
+                    <label for="auto-save-chats">Automatically save chats</label>
+                    <p class="form-help">When enabled, all successful chat interactions will be saved to your browser's local storage.</p>
+                </div>
+                
+                <div class="form-group">
+                    <button id="clear-chats-btn" class="danger-button">Clear All Saved Chats</button>
+                    <p class="form-help">This will permanently delete all saved chat history. This action cannot be undone.</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <div class="actions">
+                <button id="save-settings-btn" class="primary-button">Save Settings</button>
+                <button id="reset-settings-btn">Reset to Defaults</button>
+            </div>
+            
+            <div class="info">
+                <p>WebPage Chatter v1.0.0</p>
+                <p>Created by Chirag Singhal</p>
+            </div>
+        </footer>
+    </div>
+    
+    <div id="toast" class="toast hidden"></div>
+    
+    <script src="../common/storage_service.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>
