@@ -1,145 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web Page Chat Assistant Settings</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="options.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Chatter Settings</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="options.css">
 </head>
-<body class="bg-gray-100 min-h-screen">
-  <div class="container mx-auto py-8 px-4 max-w-3xl">
-    <header class="mb-8">
-      <h1 class="text-3xl font-bold text-blue-600 mb-2">Web Page Chat Assistant Settings</h1>
-      <p class="text-gray-600">Configure your extension settings below</p>
-    </header>
 
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">Gemini API Key</h2>
-      
-      <div class="mb-4">
-        <label for="gemini-api-key" class="block text-sm font-medium text-gray-700 mb-1">
-          Your Gemini API Key
-        </label>
-        <input 
-          type="password" 
-          id="gemini-api-key" 
-          class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your Gemini API key"
-        >
-        <p class="mt-2 text-sm text-gray-500">
-          Your API key is stored locally and is only sent to the Gemini API when you make requests.
-          <a href="https://ai.google.dev/" target="_blank" class="text-blue-500 hover:underline">Get a Gemini API key</a>
-        </p>
-      </div>
-      
-      <div class="mb-4">
-        <label for="backend-url" class="block text-sm font-medium text-gray-700 mb-1">
-          Backend URL
-        </label>
-        <input 
-          type="text" 
-          id="backend-url" 
-          class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="https://your-backend-url.run.app"
-        >
-        <p class="mt-2 text-sm text-gray-500">
-          The URL of the backend service that processes your queries.
-        </p>
-      </div>
-      
-      <button 
-        id="save-api-key" 
-        class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Save API Settings
-      </button>
+<body class="bg-gray-100 min-h-screen p-6">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold text-blue-600 mb-6">Web Chatter Settings</h1>
+
+        <!-- API Key Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Gemini API Key</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 mb-4">
+                <p>You need a Gemini API key to use this extension. If you don't have one yet, you can get it from the
+                    <a href="https://ai.google.dev/" target="_blank" class="text-blue-600 underline">Google AI
+                        Studio</a>.</p>
+            </div>
+
+            <div class="mb-4">
+                <label for="apiKey" class="block text-sm font-medium text-gray-700 mb-1">Your Gemini API Key</label>
+                <div class="flex">
+                    <input type="password" id="apiKey"
+                        class="flex-1 border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter your API key">
+                    <button id="toggleApiKey" class="bg-gray-200 hover:bg-gray-300 px-3 rounded-r-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                            <path fill-rule="evenodd"
+                                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button id="saveApiKey" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                Save API Key
+            </button>
+        </section>
+
+        <!-- TTS Settings Section -->
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Text-to-Speech Settings</h2>
+
+            <div class="mb-4">
+                <label for="ttsVoice" class="block text-sm font-medium text-gray-700 mb-1">Voice</label>
+                <select id="ttsVoice"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Loading voices...</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="ttsSpeed" class="block text-sm font-medium text-gray-700 mb-1">Speech Speed: <span
+                        id="speedValue">1.0x</span></label>
+                <input type="range" id="ttsSpeed" min="0.5" max="4" step="0.1" value="1" class="w-full">
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>0.5x</span>
+                    <span>1.0x</span>
+                    <span>2.0x</span>
+                    <span>3.0x</span>
+                    <span>4.0x</span>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <button id="testTts" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded mr-2">
+                    Test Voice
+                </button>
+                <button id="saveTtsSettings" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                    Save TTS Settings
+                </button>
+            </div>
+        </section>
+
+        <!-- Status Messages -->
+        <div id="statusMessage" class="hidden p-4 rounded-md mb-4"></div>
+
+        <!-- About Section -->
+        <section>
+            <h2 class="text-xl font-semibold mb-4">About</h2>
+            <p class="text-gray-700 mb-2">Web Chatter allows you to chat with any webpage using Google's Gemini AI.</p>
+            <p class="text-gray-700 mb-4">Version 1.0.0</p>
+            <div class="flex space-x-4">
+                <a href="https://github.com/yourusername/web-chatter" target="_blank"
+                    class="text-blue-600 hover:text-blue-800">GitHub</a>
+                <a href="mailto:support@example.com" class="text-blue-600 hover:text-blue-800">Support</a>
+            </div>
+        </section>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">Text-to-Speech Settings</h2>
-      
-      <div class="mb-4">
-        <label for="tts-voice" class="block text-sm font-medium text-gray-700 mb-1">
-          Voice
-        </label>
-        <select 
-          id="tts-voice" 
-          class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="">Loading voices...</option>
-        </select>
-        <p class="mt-2 text-sm text-gray-500">
-          Select the voice to use for text-to-speech.
-        </p>
-      </div>
-      
-      <div class="mb-4">
-        <label for="tts-rate" class="block text-sm font-medium text-gray-700 mb-1">
-          Speech Rate: <span id="rate-value">1.0</span>x
-        </label>
-        <input 
-          type="range" 
-          id="tts-rate" 
-          min="0.5" 
-          max="4" 
-          step="0.1" 
-          value="1.0"
-          class="w-full"
-        >
-        <div class="flex justify-between text-xs text-gray-500">
-          <span>0.5x</span>
-          <span>1.0x</span>
-          <span>2.0x</span>
-          <span>3.0x</span>
-          <span>4.0x</span>
-        </div>
-      </div>
-      
-      <div class="mb-4">
-        <button 
-          id="test-tts" 
-          class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 mr-2"
-        >
-          Test Voice
-        </button>
-        
-        <button 
-          id="save-tts" 
-          class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Save TTS Settings
-        </button>
-      </div>
-    </div>
-    
-    <div class="bg-white rounded-lg shadow-md p-6">
-      <h2 class="text-xl font-semibold mb-4 text-gray-800">About</h2>
-      
-      <p class="mb-2">
-        <strong>Version:</strong> 1.0.0
-      </p>
-      
-      <p class="mb-2">
-        <strong>Developer:</strong> Chirag Singhal
-      </p>
-      
-      <p class="mb-4">
-        <strong>GitHub:</strong> 
-        <a href="https://github.com/chirag127/web-chatter" target="_blank" class="text-blue-500 hover:underline">
-          github.com/chirag127/web-chatter
-        </a>
-      </p>
-      
-      <p class="text-sm text-gray-600">
-        This extension allows you to chat with any webpage using Google's Gemini API.
-        It extracts the content of the current page and uses it as context for your questions.
-      </p>
-    </div>
-    
-    <div id="status-message" class="fixed bottom-4 right-4 p-4 rounded-lg shadow-lg hidden"></div>
-  </div>
-
-  <script src="options.js"></script>
+    <script src="options.js"></script>
 </body>
+
 </html>

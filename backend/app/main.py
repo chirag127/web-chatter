@@ -1,57 +1,66 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-import logging
-import os
-from dotenv import load_dotenv
-
-# Import API routers
-from app.api.v1.endpoints.chat import router as chat_router
-
-# Load environment variables
-load_dotenv()
-
-# Configure logging
-log_level = os.getenv("LOG_LEVEL", "INFO")
-logging.basicConfig(
-    level=getattr(logging, log_level),
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
+from pydantic import BaseModel
+from typing import List, Dict, Any, Optional
+from app.services.gemini_client import GeminiClient
+from app.api.endpoints import gemini
+from app.core.config import settings
 
 # Create FastAPI app
 app = FastAPI(
-    title="Contextual Web Page Chat Assistant API",
-    description="API for processing webpage content and user queries using Google's Gemini API",
-    version="1.0.0",
+    title="Web Chatter API",
+    description="Backend API for Web Chatter Chrome Extension",
+    version="1.0.0"
 )
 
-# Configure CORS
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify the actual origins
+    allow_origins=["*"],  # In production, restrict this to your extension's origin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Include routers
-app.include_router(chat_router, prefix="/api/v1")
+app.include_router(gemini.router, prefix="/api/gemini", tags=["gemini"])
+
+# Define request model
+class ChatRequest(BaseModel):
+    query: str
+    url: str
+    title: str
+    metaTags: Dict[str, str] = {}
+    content: str
+    conversation: List[Dict[str, str]] = []
+    apiKey: str
+
+# Define response model
+class ChatResponse(BaseModel):
+    answer: str
+
+# Chat endpoint
+@app.post("/api/v1/chat", response_model=ChatResponse)
+async def chat(request: ChatRequest):
+    try:
+        # Initialize Gemini client with API key
+        gemini_client = GeminiClient(request.apiKey)
+
+        # Process the request and get response
+        response = await gemini_client.generate_response(
+            query=request.query,
+            url=request.url,
+            title=request.title,
+            meta_tags=request.metaTags,
+            content=request.content,
+            conversation=request.conversation
+        )
+
+        return ChatResponse(answer=response)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Health check endpoint
 @app.get("/health")
 async def health_check():
-    return {"status": "ok"}
-
-# Global exception handler
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    logger.error(f"Unhandled exception: {exc}", exc_info=True)
-    return JSONResponse(
-        status_code=500,
-        content={"detail": "An unexpected error occurred. Please try again later."},
-    )
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    return {"status": "healthy"}

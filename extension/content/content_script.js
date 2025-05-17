@@ -1,144 +1,144 @@
-// Content script for Contextual Web Page Chat Assistant
+// Content script for Web Chatter extension
 
-// Constants
-const SIDEBAR_ID = 'contextual-chat-sidebar';
-const SIDEBAR_IFRAME_ID = 'contextual-chat-sidebar-iframe';
-const SIDEBAR_WIDTH = '350px';
-
-// Track sidebar state
+// Global variables
+let sidebarFrame = null;
 let sidebarVisible = false;
-let sidebarIframe = null;
 
-// Initialize when content script is loaded
-initialize();
-
-function initialize() {
-  console.log('Contextual Web Page Chat Assistant content script initialized');
-  
-  // Listen for messages from background script
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === 'toggle-sidebar') {
-      toggleSidebar();
-      sendResponse({ success: true });
-    }
-    return true;
-  });
-}
+// Listen for messages from the service worker
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'toggleSidebar') {
+    toggleSidebar();
+    sendResponse({ success: true });
+  } else if (request.action === 'extractContent') {
+    const content = extractPageContent();
+    sendResponse(content);
+  }
+  return true; // Required for async response
+});
 
 // Function to toggle sidebar visibility
 function toggleSidebar() {
-  if (sidebarVisible) {
-    hideSidebar();
+  if (sidebarVisible && sidebarFrame) {
+    // Hide sidebar
+    document.body.removeChild(sidebarFrame);
+    sidebarFrame = null;
+    sidebarVisible = false;
   } else {
-    showSidebar();
+    // Show sidebar
+    createSidebar();
+    sidebarVisible = true;
   }
 }
 
-// Function to show the sidebar
-function showSidebar() {
-  if (sidebarIframe) {
-    sidebarIframe.style.display = 'block';
-    sidebarVisible = true;
+// Function to create and inject the sidebar iframe
+function createSidebar() {
+  // Create iframe element
+  sidebarFrame = document.createElement('iframe');
+
+  // Set attributes
+  sidebarFrame.id = 'web-chatter-sidebar';
+  sidebarFrame.src = chrome.runtime.getURL('sidebar/sidebar.html');
+
+  // Set styles
+  Object.assign(sidebarFrame.style, {
+    position: 'fixed',
+    top: '0',
+    right: '0',
+    width: '350px',
+    height: '100%',
+    zIndex: '2147483647', // Maximum z-index
+    border: 'none',
+    boxShadow: '-5px 0 15px rgba(0, 0, 0, 0.2)'
+  });
+
+  // Add to page
+  document.body.appendChild(sidebarFrame);
+
+  // Add event listener for messages from sidebar
+  window.addEventListener('message', handleSidebarMessages);
+}
+
+// Function to handle messages from the sidebar
+function handleSidebarMessages(event) {
+  // Verify the origin of the message
+  if (event.source !== sidebarFrame.contentWindow) {
     return;
   }
-  
-  // Create sidebar container
-  const sidebarContainer = document.createElement('div');
-  sidebarContainer.id = SIDEBAR_ID;
-  sidebarContainer.style.cssText = `
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: ${SIDEBAR_WIDTH};
-    height: 100%;
-    z-index: 2147483647;
-    border: none;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  `;
-  
-  // Create iframe for sidebar content
-  sidebarIframe = document.createElement('iframe');
-  sidebarIframe.id = SIDEBAR_IFRAME_ID;
-  sidebarIframe.src = chrome.runtime.getURL('sidebar/sidebar.html');
-  sidebarIframe.style.cssText = `
-    width: 100%;
-    height: 100%;
-    border: none;
-    background-color: white;
-  `;
-  
-  // Add iframe to container and container to page
-  sidebarContainer.appendChild(sidebarIframe);
-  document.body.appendChild(sidebarContainer);
-  
-  // Set sidebar as visible
-  sidebarVisible = true;
-  
-  // Listen for messages from sidebar iframe
-  window.addEventListener('message', handleSidebarMessages);
-  
-  // Extract page content and send to sidebar when it's ready
-  sidebarIframe.onload = () => {
-    sendPageContentToSidebar();
-  };
-}
 
-// Function to hide the sidebar
-function hideSidebar() {
-  if (sidebarIframe) {
-    sidebarIframe.style.display = 'none';
-    sidebarVisible = false;
+  const message = event.data;
+
+  // Handle different message types
+  if (message.action === 'getPageContent') {
+    // Extract page content and send it back to the sidebar
+    const content = extractPageContent();
+    sidebarFrame.contentWindow.postMessage({
+      action: 'pageContentResult',
+      content: content
+    }, '*');
+  } else if (message.action === 'closeSidebar') {
+    toggleSidebar();
+  } else if (message.action === 'sendQuery') {
+    // Forward the query to the service worker
+    chrome.runtime.sendMessage({
+      action: 'sendQuery',
+      data: message.data
+    }, response => {
+      // Forward the response back to the sidebar
+      sidebarFrame.contentWindow.postMessage({
+        action: 'queryResponse',
+        response: response
+      }, '*');
+    });
   }
 }
 
 // Function to extract page content
 function extractPageContent() {
-  return {
-    url: window.location.href,
-    title: document.title,
-    metaDescription: getMetaContent('description'),
-    metaKeywords: getMetaContent('keywords'),
-    pageText: document.body.innerText
-  };
-}
+  try {
+    // Get URL
+    const url = window.location.href;
 
-// Helper function to get meta tag content
-function getMetaContent(name) {
-  const metaTag = document.querySelector(`meta[name="${name}"]`) || 
-                  document.querySelector(`meta[property="og:${name}"]`);
-  return metaTag ? metaTag.content : '';
-}
+    // Get title
+    const title = document.title;
 
-// Function to send page content to sidebar
-function sendPageContentToSidebar() {
-  const pageContent = extractPageContent();
-  
-  sidebarIframe.contentWindow.postMessage({
-    action: 'page-content',
-    data: pageContent
-  }, '*');
-}
-
-// Function to handle messages from sidebar iframe
-function handleSidebarMessages(event) {
-  // Ensure message is from our sidebar
-  if (event.source !== sidebarIframe.contentWindow) return;
-  
-  const message = event.data;
-  
-  if (message.action === 'close-sidebar') {
-    hideSidebar();
-  } else if (message.action === 'api-request') {
-    // Forward API requests to background script
-    chrome.runtime.sendMessage({
-      action: 'api-request',
-      data: message.data
-    }, response => {
-      // Send response back to sidebar
-      sidebarIframe.contentWindow.postMessage({
-        action: 'api-response',
-        data: response
-      }, '*');
+    // Get meta tags
+    const metaTags = {};
+    const metaElements = document.querySelectorAll('meta[name], meta[property]');
+    metaElements.forEach(meta => {
+      const key = meta.getAttribute('name') || meta.getAttribute('property');
+      const value = meta.getAttribute('content');
+      if (key && value) {
+        metaTags[key] = value;
+      }
     });
+
+    // Get page text content
+    // Note: This is a simple implementation. For complex SPAs, more sophisticated
+    // extraction might be needed.
+    const bodyText = document.body.innerText;
+
+    // Truncate content if too large (to avoid performance issues)
+    const maxLength = 500000; // ~500K chars, adjust as needed
+    const truncatedText = bodyText.length > maxLength
+      ? bodyText.substring(0, maxLength) + '\n[Content truncated due to length...]'
+      : bodyText;
+
+    return {
+      url,
+      title,
+      metaTags,
+      content: truncatedText,
+      timestamp: new Date().toISOString()
+    };
+  } catch (error) {
+    console.error('Error extracting page content:', error);
+    return {
+      url: window.location.href,
+      title: document.title,
+      metaTags: {},
+      content: '[Error extracting page content]',
+      error: error.message,
+      timestamp: new Date().toISOString()
+    };
   }
 }
