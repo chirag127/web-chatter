@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background circle -->
+    <circle cx="64" cy="64" r="60" fill="#2563eb"/>
+
+    <!-- Chat bubble -->
+    <path d="M38 88H90C94.4183 88 98 84.4183 98 80V44C98 39.5817 94.4183 36 90 36H38C33.5817 36 30 39.5817 30 44V80C30 84.4183 33.5817 88 38 88ZM38 88V96L46 88"
+          fill="white" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Text lines representing chat -->
+    <rect x="40" y="48" width="48" height="4" rx="2" fill="#2563eb"/>
+    <rect x="40" y="60" width="40" height="4" rx="2" fill="#2563eb"/>
+    <rect x="40" y="72" width="32" height="4" rx="2" fill="#2563eb"/>
+</svg>

@@ -1,103 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Chatter Settings</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="options.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebPage Chatter - Settings</title>
+  <link rel="stylesheet" href="options.css">
 </head>
+<body>
+  <div class="container">
+    <h1>WebPage Chatter Settings</h1>
 
-<body class="bg-gray-100 min-h-screen p-6">
-    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h1 class="text-2xl font-bold text-blue-600 mb-6">Web Chatter Settings</h1>
-
-        <!-- API Key Section -->
-        <section class="mb-8">
-            <h2 class="text-xl font-semibold mb-4">Gemini API Key</h2>
-            <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 mb-4">
-                <p>You need a Gemini API key to use this extension. If you don't have one yet, you can get it from the
-                    <a href="https://ai.google.dev/" target="_blank" class="text-blue-600 underline">Google AI
-                        Studio</a>.</p>
-            </div>
-
-            <div class="mb-4">
-                <label for="apiKey" class="block text-sm font-medium text-gray-700 mb-1">Your Gemini API Key</label>
-                <div class="flex">
-                    <input type="password" id="apiKey"
-                        class="flex-1 border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Enter your API key">
-                    <button id="toggleApiKey" class="bg-gray-200 hover:bg-gray-300 px-3 rounded-r-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                            <path fill-rule="evenodd"
-                                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <button id="saveApiKey" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
-                Save API Key
-            </button>
-        </section>
-
-        <!-- TTS Settings Section -->
-        <section class="mb-8">
-            <h2 class="text-xl font-semibold mb-4">Text-to-Speech Settings</h2>
-
-            <div class="mb-4">
-                <label for="ttsVoice" class="block text-sm font-medium text-gray-700 mb-1">Voice</label>
-                <select id="ttsVoice"
-                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Loading voices...</option>
-                </select>
-            </div>
-
-            <div class="mb-4">
-                <label for="ttsSpeed" class="block text-sm font-medium text-gray-700 mb-1">Speech Speed: <span
-                        id="speedValue">1.0x</span></label>
-                <input type="range" id="ttsSpeed" min="0.5" max="4" step="0.1" value="1" class="w-full">
-                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                    <span>0.5x</span>
-                    <span>1.0x</span>
-                    <span>2.0x</span>
-                    <span>3.0x</span>
-                    <span>4.0x</span>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <button id="testTts" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded mr-2">
-                    Test Voice
-                </button>
-                <button id="saveTtsSettings" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
-                    Save TTS Settings
-                </button>
-            </div>
-        </section>
-
-        <!-- Status Messages -->
-        <div id="statusMessage" class="hidden p-4 rounded-md mb-4"></div>
-
-        <!-- About Section -->
-        <section>
-            <h2 class="text-xl font-semibold mb-4">About</h2>
-            <p class="text-gray-700 mb-2">Web Chatter allows you to chat with any webpage using Google's Gemini AI.</p>
-            <p class="text-gray-700 mb-4">Version 1.0.0</p>
-            <div class="flex space-x-4">
-                <a href="https://github.com/yourusername/web-chatter" target="_blank"
-                    class="text-blue-600 hover:text-blue-800">GitHub</a>
-                <a href="mailto:support@example.com" class="text-blue-600 hover:text-blue-800">Support</a>
-            </div>
-        </section>
+    <div class="section">
+      <h2>API Configuration</h2>
+      <div class="form-group">
+        <label for="api-key">Gemini API Key:</label>
+        <input type="password" id="api-key" placeholder="Enter your Gemini API key">
+        <p class="help-text">Your API key is stored locally and is never sent to our servers.</p>
+      </div>
     </div>
 
-    <script src="options.js"></script>
-</body>
+    <div class="section">
+      <h2>Text-to-Speech Settings</h2>
+      <div class="form-group">
+        <label for="voice-select">Voice:</label>
+        <select id="voice-select"></select>
+      </div>
+      <div class="form-group">
+        <label for="speed-select">Speed:</label>
+        <select id="speed-select">
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </div>
+    </div>
 
+    <div class="button-container">
+      <button id="save-button" class="primary-button">Save Settings</button>
+    </div>
+
+    <div id="status" class="status hidden"></div>
+  </div>
+
+  <script src="../common/storage.js" type="module"></script>
+  <script src="options.js" type="module"></script>
+</body>
 </html>

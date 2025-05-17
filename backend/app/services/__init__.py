@@ -1,1 +1,0 @@
-# Web Chatter Services Package

@@ -1,5 +1,36 @@
 {
   "devDependencies": {
     "sharp": "^0.34.1"
-  }
+  },
+  "name": "web-chatter",
+  "version": "1.0.0",
+  "description": "A browser extension that allows users to interactively chat with the content of any webpage using Google's Gemini AI.",
+  "main": "index.js",
+  "dependencies": {
+    "color": "^4.2.3",
+    "color-convert": "^2.0.1",
+    "color-name": "^1.1.4",
+    "color-string": "^1.9.1",
+    "detect-libc": "^2.0.4",
+    "is-arrayish": "^0.3.2",
+    "semver": "^7.7.2",
+    "simple-swizzle": "^0.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-icons": "node scripts/generate-pngs.js",
+    "build": "npm run generate-icons"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chirag127/web-chatter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/chirag127/web-chatter/issues"
+  },
+  "homepage": "https://github.com/chirag127/web-chatter#readme"
 }

@@ -6,7 +6,7 @@ const sharp = require('sharp');
 const sizes = [16, 48, 128];
 
 // Input SVG file
-const svgPath = path.join(__dirname, '../extension/icons/icon.svg');
+const svgPath = path.join(__dirname, '../assets-src/icon.svg');
 const svgContent = fs.readFileSync(svgPath, 'utf8');
 
 // Output directory
@@ -21,22 +21,20 @@ if (!fs.existsSync(outputDir)) {
 async function generatePNGs() {
   console.log('Generating PNG icons from SVG...');
   
-  for (const size of sizes) {
-    const outputPath = path.join(outputDir, `icon${size}.png`);
-    
-    try {
+  try {
+    await Promise.all(sizes.map(async (size) => {
+      const outputPath = path.join(outputDir, `icon-${size}.png`);
       await sharp(Buffer.from(svgContent))
         .resize(size, size)
         .png()
         .toFile(outputPath);
-      
-      console.log(`Created: ${outputPath}`);
-    } catch (error) {
-      console.error(`Error generating ${size}x${size} icon:`, error);
-    }
+      console.log(`Generated ${size}x${size} icon at ${outputPath}`);
+    }));
+    console.log('All icons generated successfully!');
+  } catch (error) {
+    console.error('Error generating icons:', error);
+    process.exit(1);
   }
-  
-  console.log('Icon generation complete!');
 }
 
 // Run the generation
