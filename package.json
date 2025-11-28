@@ -12,7 +12,7 @@
     "color-name": "^1.1.4",
     "color-string": "^1.9.1",
     "detect-libc": "^2.0.4",
-    "is-arrayish": "^0.3.2",
+    "is-arrayish": "^0.3.4",
     "semver": "^7.7.2",
     "simple-swizzle": "^0.2.2"
   },
