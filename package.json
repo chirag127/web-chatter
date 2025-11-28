@@ -14,7 +14,7 @@
     "detect-libc": "^2.0.4",
     "is-arrayish": "^0.3.2",
     "semver": "^7.7.2",
-    "simple-swizzle": "^0.2.2"
+    "simple-swizzle": "^0.2.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
