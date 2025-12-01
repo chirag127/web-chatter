@@ -1,0 +1,72 @@
+name: Apex CI/CD | Lint, Test & Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Cancel in-progress runs for the same PR/branch to save CI resources
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_test:
+    name: Build & Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Per 2026 standards, test against the current LTS and the next major version
+        node-version: [20.x, 22.x]
+
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Setup pnpm Package Manager
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: 3. Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 4. Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 5. Run Linter & Formatter Check (Biome)
+        # This step ensures code quality and consistency across the codebase.
+        # Assumes a "lint": "biome check ." script in package.json
+        run: pnpm run lint
+
+      - name: 6. Run Unit & Integration Tests (Vitest)
+        # This step runs fast, in-memory tests and generates a coverage report.
+        # Assumes a "test": "vitest run --coverage" script in package.json
+        run: pnpm test
+
+      - name: 7. Install E2E Browser Dependencies (Playwright)
+        run: pnpm exec playwright install --with-deps
+
+      - name: 8. Run End-to-End Tests (Playwright)
+        # This step simulates real user interactions in a headless browser.
+        # Assumes a "test:e2e": "playwright test" script in package.json
+        run: pnpm run test:e2e
+
+      - name: 9. Build for Production (Vite)
+        # This step verifies that the application can be successfully bundled for production.
+        # Assumes a "build": "vite build" script in package.json
+        run: pnpm run build
+
+      - name: 10. Upload Coverage to Codecov
+        # Uploads the generated test coverage report to Codecov for analysis.
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          # Default path for vitest coverage lcov report
+          files: ./coverage/lcov.info
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
