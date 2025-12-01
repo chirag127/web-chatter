@@ -1,132 +1,181 @@
-# Web-Chat-Extension-Real-Time-Secure-Messaging-Platform 🚀🔒
+# WebChat-Secure-RealTime-Messaging-Browser-Extension
 
-## Bottom Line Up Front (BLUF)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/ci.yml?style=flat-square)](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension?style=flat-square)](https://codecov.io/github/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension)
+[![Tech Stack](https://img.shields.io/badge/TS%7CVite%7CTailwindCSS-brightgreen?style=flat-square)](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension)
+[![Linting](https://img.shields.io/badge/Biome-5639CA?style=flat-square)](https://biomejs.dev/)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-orange?style=flat-square)](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension?style=flat-square)](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension)
 
-The **Web-Chat-Extension-Real-Time-Secure-Messaging-Platform** revolutionizes your online communication by providing a robust, secure, and real-time chat experience directly within your web browser. This project combines a powerful backend service with an intuitive browser extension, enabling seamless, private conversations on any webpage. Designed for speed, privacy, and ease of use, it's the ultimate tool for enhanced web interaction.
+A secure, real-time messaging browser extension for seamless, private communication on any webpage. Engineered for speed and privacy with React, Vite, and TypeScript, it provides the ultimate chat layer for the modern web.
 
----
+## ⭐ Star ⭐ This Repo
 
-## Status & Health
-
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/your-org/Web-Chat-Extension-Real-Time-Secure-Messaging-Platform/actions)
-[![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://github.com/your-org/Web-Chat-Extension-Real-Time-Secure-Messaging-Platform/actions)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-
----
-
-## Key Features ✨
-
-*   **Real-Time Messaging:** Instantaneous communication with WebSockets.
-*   **Browser Extension Integration:** Chat directly from any webpage.
-*   **End-to-End Encryption (Planned/Future):** Ensure your conversations remain private.
-*   **Secure Backend:** Robust API for user authentication, message handling, and persistence.
-*   **User Presence Indicators:** See who's online and typing.
-*   **Message History:** Access past conversations effortlessly.
-*   **Customizable UI:** Adapt the chat interface to your preferences.
+If you find this project valuable, please consider starring it on GitHub!
 
 ---
 
-## Architecture Overview 🏛️
+## 🚀 Project Overview
 
-The platform follows a clear separation of concerns, comprising two main components:
+**WebChat-Secure-RealTime-Messaging-Browser-Extension** enhances web browsing by enabling secure, end-to-end encrypted, real-time messaging directly within your browser. Communicate privately on any webpage without context switching, leveraging a robust architecture built for performance and privacy.
 
-1.  **Backend Service:** A robust API built with Node.js/Express.js (or Rust/Go), responsible for user management, message routing, data persistence, and WebSocket handling.
-2.  **Browser Extension:** Developed with TypeScript/Vite/React (or similar), this client-side component injects the chat interface into web pages and communicates with the backend.
+## 🏛️ Architecture
 
-```
-+------------------+         +--------------------+         +------------------+
-|                  |         |                    |         |                  |
-|  Browser Client  | <-----> |   Browser Extension| <-----> |   Backend Service|
-| (Any Webpage)    |         | (Content/Popup)    |         | (API & WebSockets)|
-|                  |         |                    |         |                  |
-+------------------+         +--------------------+         +------------------+
-                                        ^
-                                        |
-                                        v
-                                  +------------+
-                                  | Persistent |
-                                  |  Storage   |
-                                  | (Database) |
-                                  +------------+
-```
+mermaid
+graph TD
+    A[Browser Environment]
+    B(Content Script)
+    C(Background Script)
+    D(UI Popup/Overlay)
+    E(Web Extension API)
+    F(WebSocket Server)
+    G(End-to-End Encryption Module)
+
+    A --> B
+    B --> D
+    B --> E
+    C --> E
+    E --> C
+    E --> B
+    D --> E
+    C --> F
+    B --> G
+    G --> B
+    F --> G
+
+
+## 🧭 Table of Contents
+
+*   [🚀 Project Overview](#-project-overview)
+*   [🏛️ Architecture](#️-architecture)
+*   [📦 Key Features](#-key-features)
+*   [🛠️ Tech Stack](#️-tech-stack)
+*   [💡 AI Agent Directives](#-ai-agent-directives)
+*   [🔧 Development Setup](#-development-setup)
+*   [📜 Scripts](#-scripts)
+*   [🛡️ Principles](#-principles)
+*   [🤝 Contributing](#-contributing)
+*   [⚖️ License](#️-license)
 
 ---
 
-## Technologies Used 🛠️
+## 📦 Key Features
 
-*   **Frontend (Extension):** TypeScript, Vite, React (or similar), Biome (Linter), Vitest (Testing)
-*   **Backend:** Node.js/Express.js (or Rust/Go), WebSockets, PostgreSQL (or similar)
-*   **Containerization:** Docker (planned)
-*   **Version Control:** Git, GitHub Actions
+*   **Secure Real-Time Messaging:** End-to-end encrypted communication using WebSockets.
+*   **Cross-Webpage Integration:** Seamlessly chat without leaving your current tab.
+*   **Privacy-Focused Design:** Minimal data collection, maximum user privacy.
+*   **Modern Tech Stack:** Built with TypeScript, Vite, and React for optimal performance.
+*   **Cross-Browser Compatibility:** Supports Chrome and Firefox.
 
 ---
 
-## Getting Started 🚀
+## 🛠️ Tech Stack
 
-### Prerequisites
+*   **Core:** TypeScript 6.x, Vite 7 (Rolldown), React 20
+*   **Styling:** TailwindCSS v4
+*   **Extension Framework:** WXT (Web Extension Toolkit)
+*   **State Management:** Signals
+*   **Linting & Formatting:** Biome
+*   **Testing:** Vitest (Unit), Playwright (E2E)
+*   **Architecture:** Feature-Sliced Design (FSD)
 
-*   Node.js (v18+)
-*   npm (v9+) or Yarn (v1.22+) or pnpm (v8+)
-*   Docker & Docker Compose (for backend setup)
-*   A modern web browser (Chrome, Firefox, Edge)
+---
 
-### Installation (For Users)
+## 🤖 AI Agent Directives
 
-Detailed installation instructions for adding the extension to your browser will go here.
-*(e.g., Download from Chrome Web Store / Firefox Add-ons, or load unpacked extension)*
+<details>
+<summary>Click to expand AI Agent Directives</summary>
 
-### Local Development Setup
+## 1. IDENTITY & PRIME DIRECTIVE (DECEMBER 2025 EDITION)
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/your-org/Web-Chat-Extension-Real-Time-Secure-Messaging-Platform.git
-    cd Web-Chat-Extension-Real-Time-Secure-Messaging-Platform
-    ```
+*   **Role:** Senior Principal Software Architect, Master Technical Copywriter.
+*   **Experience:** 40+ years, FAANG-level standards.
+*   **Context:** Current Date: December 2025. Building for 2026.
+*   **Output Standard:** EXECUTION-ONLY.
+*   **Philosophy:** "Zero-Defect, High-Velocity, Future-Proof."
 
-2.  **Backend Setup:**
-    Navigate to the `backend` directory and follow its `README.md` for specific setup instructions (e.g., database, environment variables, running the server).
-    ```bash
-    cd backend
+## 2. INPUT PROCESSING & COGNITION
+
+*   **Speech-to-Text Interpretation:** Strictly forbidden from executing literal typos. Infer technical intent semantically.
+*   **SSOT:** `README.md` is the Single Source of Truth.
+*   **MCP Instrumentation:** Use `linkup`/`brave` for research, `docfork` for API validation, `clear-thought-two` for complex flows.
+
+## 3. CONTEXT-AWARE APEX TECH STACKS (LATE 2025 STANDARDS)
+
+*   **SCENARIO A: WEB / APP / EXTENSION (TypeScript)**
+    *   **Stack:** TypeScript 6.x, Vite 7 (Rolldown), Tauri v2.x (Native), **WXT** (Extensions).
+    *   **State:** Signals (Standardized).
+    *   **Lint/Test:** Biome (Speed), Vitest (Unit), Playwright (E2E).
+
+## 4. AI ORCHESTRATION & GEMINI PROTOCOL (DECEMBER 2025)
+
+*   **Fallback Cascade:** `gemini-3-pro` -> `gemini-2.5-pro` -> `gemini-2.5-flash` -> `gemini-2.5-flash-lite`.
+*   **Circuit Breaker:** Trigger "Cool-Off" and fallback on 429/500 errors.
+*   **Local AI Emulation:** Utilize Mock AI APIs.
+
+**Specifics for WebChat-Secure-RealTime-Messaging-Browser-Extension:**
+
+*   **Tech Stack Adherence:** Strictly use the specified TypeScript, Vite, WXT, Biome, Vitest, and Playwright toolchain.
+*   **Testing:** All new code must include comprehensive unit tests (Vitest) and end-to-end tests (Playwright).
+*   **Linting:** All code must pass Biome checks.
+*   **AI Integration:** If AI features are implemented, adhere to the Gemini Protocol for API calls.
+
+</details>
+
+---
+
+## 🔧 Development Setup
+
+1.  **Clone the repository:**
+    bash
+    git clone https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension
+    cd WebChat-Secure-RealTime-Messaging-Browser-Extension
+    
+
+2.  **Install dependencies:**
+    bash
+    # Using uv (Python package manager, if applicable for build tools)
+    # For Node.js dependencies, npm/yarn/pnpm are typically used by Vite/WXT
+    # This example assumes Node.js dependencies managed by Vite/WXT
     npm install
-    npm run dev # or similar command
-    ```
+    
 
-3.  **Extension Setup:**
-    Navigate to the `extension` directory and follow its `README.md` for specific setup instructions (e.g., building, loading as unpacked extension).
-    ```bash
-    cd ../extension
-    npm install
-    npm run build # Build the extension for development
-    # Load the `dist` folder as an unpacked extension in your browser
-    ```
+3.  **Run development server:**
+    bash
+    npm run dev
+    
+
+4.  **Load extension in browser:** Follow instructions for your browser (Chrome/Firefox) to load the unpacked extension from the `dist` directory.
 
 ---
 
-## Development Guidelines 🧑‍💻
+## 📜 Scripts
 
-*   **Coding Standards:** Adhere to strict TypeScript, Biome formatting, and clean code principles (SOLID, DRY, KISS).
-*   **Tests:** All new features and bug fixes must be accompanied by comprehensive unit and integration tests (100% coverage).
-*   **Commit Messages:** Use Conventional Commits for clear and concise history.
-*   **Branching Strategy:** Follow Git Flow or GitHub Flow (e.g., `main` for production, `develop` for integration, feature branches).
-
----
-
-## Contributing 🤝
-
-We welcome contributions from the community! Please read our `CONTRIBUTING.md` (to be created) for details on our code of conduct, and the process for submitting pull requests.
+| Script         | Description                                                    |
+| -------------- | -------------------------------------------------------------- |
+| `dev`          | Run the development server and watch for changes.              |
+| `build`        | Build the extension for production.                            |
+| `lint`         | Run Biome to lint and format the codebase.                     |
+| `test:unit`    | Run Vitest for unit tests.                                     |
+| `test:e2e`     | Run Playwright for end-to-end tests.                           |
+| `test`         | Run all tests (unit and e2e).                                  |
 
 ---
 
-## Support 🙏
+## 🛡️ Principles
 
-If you find this project useful and valuable, please consider giving it a **Star ⭐** on GitHub! Your support helps to boost visibility and motivates further development. Thank you!
-
----
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+*   **SOLID:** Ensure high cohesion and low coupling.
+*   **DRY:** Don't Repeat Yourself. Abstract common logic.
+*   **YAGNI:** You Ain't Gonna Need It. Implement only necessary features.
+*   **Privacy-First:** Every design decision prioritizes user data protection.
+*   **Performance:** Optimize for speed and resource efficiency.
 
 ---
 
-*(Remember to replace placeholders like `[your-org]`, `Node.js/Express.js (or Rust/Go)`, and add actual links for badges and detailed setup instructions in respective sub-directories.)*
+## 🤝 Contributing
+
+Contributions are welcome! Please refer to the [CONTRIBUTING.md](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/blob/main/.github/CONTRIBUTING.md) file for guidelines on how to submit pull requests and report issues.
+
+## ⚖️ License
+
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license. See the [LICENSE](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/blob/main/LICENSE) file for details.
