@@ -1,48 +1,52 @@
-# Pull Request Template
+# 🚀 Pull Request Template
 
-## 1. Purpose & Scope
+**Important:** Please ensure all automated checks and tests pass before submitting your Pull Request.
 
-**Clearly describe the changes made in this pull request.**
+## PR Checklist
 
-- What problem does this PR solve?
-- What is the scope of the changes?
-- Are there any related issues? (e.g., `Fixes #123`, `Closes #456`)
+- [ ] **Self-Review:** I have thoroughly reviewed my own changes.
+- [ ] **Branch Cleanliness:** My branch is up-to-date with the latest changes from the main branch (`main` or `master`).
+- [ ] **Meaningful Commit Messages:** My commits are clear, concise, and follow the Conventional Commits specification.
+- [ ] **Atomic Commits:** Changes are broken down into logical, self-contained commits.
+- [ ] **Testing:** All relevant tests (unit, integration, E2E) have been written or updated and are passing.
+- [ ] **Linting & Formatting:** Code adheres to the project's linting and formatting standards (e.g., Biome, Ruff).
+- [ ] **Documentation:** All new or modified features are adequately documented in the relevant files (e.g., README.md, source code comments).
+- [ ] **Security:** No new security vulnerabilities have been introduced.
+- [ ] **Performance:** Changes do not negatively impact application performance.
+- [ ] **Deprecation:** No deprecated libraries or patterns have been used unless absolutely necessary and with proper justification.
 
-## 2. Type of Change
+## Related Issue(s)
 
-Please select the relevant option(s):
+*Closes #<issue-number>*
+*Fixes #<issue-number>*
+*Related to #<issue-number>*
 
-- [ ] **New Feature** (non-breaking change which adds functionality)
-- [ ] **Bug Fix** (non-breaking change which fixes an issue)
-- [ ] **Documentation Update**
-- [ ] **Refactoring** (code performance, readability, etc.)
-- [ ] **Performance Improvement**
-- [ ] **Test Update**
-- [ ] **Build/CI Change**
-- [ ] **Other** (please describe):
+## Description
 
-## 3. Checklist
+Provide a concise and clear description of the changes introduced in this Pull Request. What problem does it solve? What feature does it add? What architectural decision was made?
 
-**Before submitting your pull request, please ensure you have:**
+## Type of Change
 
-- [ ] **Written new tests** that prove your fix is effective or that the feature works as expected.
-- [ ] **Updated existing tests** to reflect any changes.
-- [ ] **Ran all tests** and ensured they pass locally (`npm test` or equivalent).
-- [ ] **Linted and formatted** the code (`npm run lint` or `npm run format`).
-- [ ] **Added or updated documentation** (e.g., README.md, relevant `.md` files).
-- [ ] **Made corresponding changes to the documentation** (if applicable).
-- [ ] **Ensured the code follows the project's established style guidelines.**
-- [ ] **Reviewed the code yourself** for clarity and correctness.
-- [ ] **Verified the changes against the AI Agent Directives** (if applicable, see `AGENTS.md`).
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
+- [ ] Refactoring / Code style update
+- [ ] Performance improvement
+- [ ] Other (please specify):
 
-## 4. Visuals / Screenshots (if applicable)
+## How Has This Been Tested?
 
-Provide screenshots or screen recordings if your changes involve UI or UX modifications.
+Describe the tests that you ran to verify your changes. Provide instructions, if necessary, so we can reproduce them.
 
-## 5. Notes for the Reviewer
+- **Local Testing:** (e.g., `npm run test:unit`, `npm run test:e2e`)
+- **CI/CD Pipeline:** All checks in the GitHub Actions workflow should pass.
+- **Manual Verification:** Steps to manually verify the changes.
 
-**Anything else important for the reviewer to know?**
+## Screenshots / Visual Changes (If Applicable)
 
-- Specific areas to focus on.
-- Potential trade-offs or known issues.
-- Any complex logic that needs explanation.
+If your changes include UI modifications, please provide screenshots or screen recordings to demonstrate the visual impact.
+
+## Notes for Reviewers
+
+Add any specific areas you'd like reviewers to focus on, potential concerns, or context that might be helpful for understanding your changes.
