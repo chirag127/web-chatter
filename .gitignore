@@ -1,39 +1,66 @@
-# Node.js
+# Apex Technical Authority: .gitignore (2025/2026 Standard)
+# Stack: Vite, React, TypeScript, Node.js
+
+# Dependencies
+# ----------------------------------------------------------------------------
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Production
-.env
-
-# Build artifacts
+# Build artifacts & Output
+# ----------------------------------------------------------------------------
 dist/
 build/
+.vite/
+
+# Packaged extension files
+*.crx
+*.xpi
+*.zip
 
 # Logs
+# ----------------------------------------------------------------------------
+logs
 *.log
-*.txt
 
-# System files
-.DS_Store
+# Runtime data
+# ----------------------------------------------------------------------------
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# IDE / Editor
+# Environment variables
+# ----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+
+# Testing & Coverage
+# ----------------------------------------------------------------------------
+coverage/
+.nyc_output/
+mochawesome-report/
+.vitest-cache/
+
+# IDE & Editor specific
+# ----------------------------------------------------------------------------
 .idea/
-*.code-workspace
-*.swp
+.vscode/*
+!/.vscode/settings.json
+!/.vscode/tasks.json
+!/.vscode/launch.json
+!/.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# Dependency manager files
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-# Tauri
-/src-tauri/target/
-/src-tauri/tauri.conf.json
-
-# VS Code
-.vscode/
-
-# Biome cache
-.biome/
-
-# WXT
-wxt-artifacts/
+# OS-specific files
+# ----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
