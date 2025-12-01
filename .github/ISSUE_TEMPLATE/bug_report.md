@@ -1,48 +1,61 @@
 ---
-name: Bug Report
-about: Report a bug or unexpected behavior
-title: "BUG: [Concise Title - What happened?]"
-labels: bug
-assignees: ""
+name: "🐞 Bug Report"
+about: "Create a report to help us identify and fix a reproducible bug."
+title: "[Bug]: A concise description of the issue"
+labels: ["bug", "triage-needed"]
+assignees: "chirag127"
 
 ---
 
-## 🐛 Bug Description
+###  Prerequisites
 
-**What is the unexpected behavior?**
+- [ ] I have searched the existing [issues](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/issues) and confirmed this is not a duplicate.
+- [ ] I have read the [Contributing Guidelines](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/blob/main/.github/CONTRIBUTING.md).
+- [ ] I am able to provide a minimal, reproducible example.
 
-> *Provide a clear and concise description of the bug. What did you expect to happen, and what actually happened? Be specific.* 
+---
 
-## 📸 Steps to Reproduce
+### Bug Description
 
-1. **Go to** [URL or describe context]
-2. **Perform Action:** [Describe the specific action taken]
-3. **Observe:** [Describe the observed result - the bug]
+A clear and concise description of what the bug is. Explain the impact of the bug (e.g., data loss, UI glitch, crash).
 
-## 💡 Expected Behavior
 
-> *What should have happened instead? Be precise.* 
+### Steps to Reproduce
 
-## 🚀 Environment
+Please provide detailed, step-by-step instructions on how to reproduce the behavior:
 
-*   **Browser:** [e.g., Chrome 120.0.6099.109, Firefox 115.0.2]
-*   **Extension Version:** [If applicable, e.g., 1.2.3]
-*   **Operating System:** [e.g., Windows 11, macOS Sonoma 14.2, Ubuntu 22.04]
-*   **Page URL (if applicable):** [The specific webpage where the bug occurred]
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-## 🚨 Additional Context
 
-*   **Screenshots/Recordings:** (Optional but HIGHLY recommended)
-    *   *Please attach any relevant screenshots or screen recordings that clearly illustrate the bug.* 
-*   **Console Logs:** (Optional but HIGHLY recommended)
-    *   *Please copy and paste any relevant error messages or warnings from your browser's developer console.* 
-*   **Any other information** that might help us reproduce the issue.
+### Expected Behavior
 
-## 🛡️ Security Concern
+A clear and concise description of what you expected to happen.
 
-*   **Is this a security vulnerability?** (Yes/No)
-    *   *If YES, please do NOT disclose details here. Instead, report it directly to our security team at [SECURITY_EMAIL_ADDRESS] or follow our security reporting guidelines.* 
 
---- 
+### Actual Behavior
 
-*This template is designed to help us quickly diagnose and fix issues. Please fill out as much information as possible.* 
+A clear and concise description of what actually happened.
+
+
+### Environment Details
+
+*   **Operating System:** (e.g., Windows 11, macOS Sonoma 14.5)
+*   **Browser & Version:** (e.g., Chrome 125.0.6422.113, Firefox 126.0)
+*   **Extension Version:** (e.g., v1.0.2)
+
+
+### Logs & Screenshots
+
+If applicable, add screenshots to help explain your problem. You can drag and drop images here.
+
+log
+// Please paste any relevant console logs or error messages here.
+// Open the browser's developer tools (F12 or Ctrl+Shift+I) and check the 'Console' tab.
+
+
+### Additional Context
+
+Add any other context about the problem here. For example, did this start happening after a specific update? Are there any specific websites where the issue is more prominent?
