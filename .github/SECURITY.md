@@ -1,48 +1,58 @@
-# Security Policy
+# Security Policy for WebChat-Secure-RealTime-Messaging-Browser-Extension
 
-## Supported Versions
+As an Apex-level project, **WebChat-Secure-RealTime-Messaging-Browser-Extension** prioritizes security above all else. This repository adheres to rigorous, future-proof standards (2026 specifications) for vulnerability disclosure and management, ensuring maximum defense-in-depth for secure, private communication.
 
-We are committed to maintaining a secure project. Currently, only the latest version of **Web-Chat-Extension-Real-Time-Secure-Messaging-Platform** is actively supported with security updates.
+## 🛡️ Commitment to Security
 
-| Version | Supported |
-| :------ | :-------- |
-| `latest` | ✅ |
+We treat all reported vulnerabilities with the highest level of urgency. Our architecture is designed around minimizing attack surfaces, especially concerning cryptographic operations inherent in E2EE messaging.
 
-New security vulnerabilities found in older versions will not be patched. Please upgrade to the latest version to ensure you have the most up-to-date security fixes.
+## 📢 Supported Versions
 
-## Reporting a Vulnerability
+| Version | Status | Notes |
+| :--- | :--- | :--- |
+| Latest Release | Supported | Critical vulnerabilities patched immediately. |
+| Previous Release | Maintained | Patches for Critical/High vulnerabilities only. |
+| Older Versions | Unsupported | Users must upgrade immediately. |
 
-We take security vulnerabilities very seriously. If you discover a security issue, please report it to us immediately. We will make every effort to address your report promptly.
+## 🚨 Reporting a Vulnerability
 
-To report a vulnerability, please:
+We follow a strict, coordinated disclosure policy. **DO NOT** disclose vulnerabilities publicly (e.g., open a public Issue or Pull Request) before coordination is complete.
 
-1.  **DO NOT** create a public GitHub issue. Public disclosure can put users at risk.
-2.  Send an email to our dedicated security team at: `security@example.com` (Replace with actual security contact email).
-3.  Please include as much of the following information as possible:
-    *   A clear description of the vulnerability.
-    *   The affected version(s) of the project.
-    *   Steps to reproduce the vulnerability.
-    *   Any proof-of-concept code or exploit details.
-    *   Your suggested mitigation or fix, if any.
+### 1. Private Disclosure
 
-We will acknowledge your email within **48 hours** and will provide an estimated timeline for resolution.
+Please report any potential security vulnerabilities privately to the maintainer:
 
-## Security Best Practices
+*   **Primary Contact:** `chirag127@users.noreply.github.com` (Security contact via GitHub email)
+*   **Alternative:** Use GitHub's [Security Advisories](https://github.com/chirag127/WebChat-Secure-RealTime-Messaging-Browser-Extension/security/advisories/new) feature to create a draft private report.
 
-*   **Zero Trust Principle:** Always validate and sanitize inputs from any source, especially user-generated content and external API responses.
-*   **Dependency Management:** Regularly audit and update project dependencies using automated tools. Ensure a Software Bill of Materials (SBOM) is generated for all builds.
-*   **Secure Transport:** Always use HTTPS for all network communications. Encrypt sensitive data at rest.
-*   **Authentication & Authorization:** Implement robust authentication and granular authorization mechanisms. Never trust client-side validation alone.
-*   **Error Handling:** Avoid exposing sensitive information in error messages. Implement rate limiting and throttling to prevent abuse.
-*   **Cross-Site Scripting (XSS) & Injection:** Sanitize all user input before rendering it in the UI or processing it in the backend to prevent XSS and other injection attacks.
-*   **Secrets Management:** Never hardcode secrets (API keys, passwords, certificates) in the codebase. Use environment variables or a dedicated secrets management system.
+### 2. Disclosure Timeline
 
-## Disclosure Policy
+Upon receiving a report, we commit to the following timeline for remediation and public disclosure:
 
-We aim to provide a coordinated disclosure process. Once a vulnerability is confirmed and a fix is developed, we will:
+1.  **Acknowledgement (within 24 hours):** Confirmation that the report has been received and validated.
+2.  **Triage & Fix Development (within 14 days):** Development of a zero-defect patch.
+3.  **Release Candidate:** Internal testing, followed by deployment to a limited beta channel.
+4.  **Public Disclosure:** The vulnerability details, fix version, and remediation steps will be published **7 days** after the patch is released to the stable channel, allowing users time to upgrade.
 
-1.  Notify the reporter of the progress.
-2.  Work to release a patch promptly.
-3.  Publicly disclose the vulnerability and its fix once a patched version is available and users have had reasonable time to upgrade.
+*Exception: This timeline may be adjusted for extremely complex or critical vulnerabilities (e.g., supply chain attacks), but you will be kept informed.*
 
-Thank you for helping to keep this project secure!
+## ✅ Remediation Standards (Apex Mandates)
+
+All patches deployed for security vulnerabilities must meet the following architectural requirements:
+
+1.  **Immutability & Verifiability:** All cryptographic operations must use verified, non-backdoored libraries. For this project, standard Node.js crypto modules or audited third-party implementations are preferred.
+2.  **Linting Enforcement:** The fix must pass all Biome formatting and linting checks (`npm run lint`).
+3.  **Test Coverage:** The fix must include a specific, reproducible regression test case written using **Playwright** (for E2E flows) or **Vitest** (for logic validation) that fails *before* the fix and passes *after* the fix.
+4.  **Principle Adherence:** The patch must uphold **SOLID, DRY, and YAGNI** principles.
+
+## 🔑 Security Audits and Dependencies
+
+We leverage automated tools to maintain dependency security:
+
+*   **Dependabot:** Configured to monitor all direct and transitive dependencies for known CVEs.
+*   **Supply Chain Integrity:** All CI workflows defined in `.github/workflows/ci.yml` utilize reproducible build environments to mitigate injection risks.
+*   **Code Scanning:** Static Application Security Testing (SAST) is integrated into the primary CI pipeline.
+
+--- 
+
+*This security policy is subject to evolution in line with emerging 2026 security threats and best practices.*
