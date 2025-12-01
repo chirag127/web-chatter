@@ -1,66 +1,71 @@
-# Apex Technical Authority: .gitignore (2025/2026 Standard)
-# Stack: Vite, React, TypeScript, Node.js
+# ===================================================================
+# APEX TECHNICAL AUTHORITY: .gitignore Standard (Vite/TypeScript/Web-Extension)
+# ===================================================================
 
-# Dependencies
-# ----------------------------------------------------------------------------
+# Dependency directories
 node_modules/
+.pnpm-store/
+
+# Build output & packaging
+dist/
+dist-ssr/
+out/
+build/
+.output/
+*.zip
+*.crx
+*.xpi
+
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-# Build artifacts & Output
-# ----------------------------------------------------------------------------
-dist/
-build/
+# Vite cache
 .vite/
 
-# Packaged extension files
-*.crx
-*.xpi
-*.zip
-
-# Logs
-# ----------------------------------------------------------------------------
-logs
-*.log
-
 # Runtime data
-# ----------------------------------------------------------------------------
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# Environment variables
-# ----------------------------------------------------------------------------
-.env
-.env.local
-.env.*.local
-
-# Testing & Coverage
-# ----------------------------------------------------------------------------
+# Test reports & coverage
 coverage/
 .nyc_output/
-mochawesome-report/
-.vitest-cache/
+playwright-report/
+test-results/
 
-# IDE & Editor specific
-# ----------------------------------------------------------------------------
+# Environment variables
+# Ignore all .env files, but keep templates.
+.env
+.env.*
+!.env.example
+!.env.ci
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs and editors
+# Ignore common IDE files, but allow sharing critical settings.
 .idea/
 .vscode/*
-!/.vscode/settings.json
-!/.vscode/tasks.json
-!/.vscode/launch.json
-!/.vscode/extensions.json
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.swp
 
-# OS-specific files
-# ----------------------------------------------------------------------------
+# OS generated files
 .DS_Store
 Thumbs.db
+
+# Temporary files
+*.tmp
